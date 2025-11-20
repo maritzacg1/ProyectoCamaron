@@ -15,5 +15,4 @@ router.post('/', createCompra);
 router.delete('/:id', deleteCompra);
 router.get('/usuario/:id', getComprasPorUsuario);
 
-
 export default router;
