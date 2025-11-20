@@ -92,3 +92,22 @@ export const deleteCompra = async (req, res) => {
     res.status(500).json({ message: "Error al eliminar compra", error });
   }
 };
+
+export const getComprasPorUsuario = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const [rows] = await conmysql.query(`
+      SELECT c.*, p.nombre_proveedor
+      FROM compra c
+      INNER JOIN proveedor p ON p.id_proveedor = c.id_proveedor
+      WHERE c.id_usuario = ?
+      ORDER BY c.fecha_compra DESC
+    `, [id]);
+
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ message: "Error al obtener compras del usuario", error });
+  }
+};
+
