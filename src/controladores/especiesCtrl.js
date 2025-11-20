@@ -5,7 +5,7 @@ import { conmysql } from "../db.js";
 // =====================================
 export const getEspecies = async (req, res) => {
   try {
-    const [rows] = await conmysql.query("SELECT * FROM ESPECIE");
+    const [rows] = await conmysql.query("SELECT * FROM especie");
     res.json(rows);
   } catch (error) {
     res.status(500).json({
@@ -21,7 +21,7 @@ export const getEspecies = async (req, res) => {
 export const getEspecie = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
-      "SELECT * FROM ESPECIE WHERE id_especie = ?",
+      "SELECT * FROM especie WHERE id_especie = ?",
       [req.params.id]
     );
 
@@ -50,14 +50,14 @@ export const createEspecie = async (req, res) => {
     }
 
     const [result] = await conmysql.query(
-      "INSERT INTO ESPECIE (nombre_especie, descripcion) VALUES (?, ?)",
+      "INSERT INTO especie (nombre_especie, descripcion) VALUES (?, ?)",
       [nombre_especie, descripcion]
     );
 
     const newId = result.insertId;
 
     const [nuevaEspecie] = await conmysql.query(
-      "SELECT * FROM ESPECIE WHERE id_especie = ?",
+      "SELECT * FROM especie WHERE id_especie = ?",
       [newId]
     );
 
@@ -78,7 +78,7 @@ export const updateEspecie = async (req, res) => {
     const { nombre_especie, descripcion } = req.body;
 
     const [result] = await conmysql.query(
-      "UPDATE ESPECIE SET nombre_especie = ?, descripcion = ? WHERE id_especie = ?",
+      "UPDATE especie SET nombre_especie = ?, descripcion = ? WHERE id_especie = ?",
       [nombre_especie, descripcion, req.params.id]
     );
 
@@ -87,7 +87,7 @@ export const updateEspecie = async (req, res) => {
     }
 
     const [registroActualizado] = await conmysql.query(
-      "SELECT * FROM ESPECIE WHERE id_especie = ?",
+      "SELECT * FROM especie WHERE id_especie = ?",
       [req.params.id]
     );
 
@@ -106,7 +106,7 @@ export const updateEspecie = async (req, res) => {
 export const deleteEspecie = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM ESPECIE WHERE id_especie = ?",
+      "DELETE FROM especie WHERE id_especie = ?",
       [req.params.id]
     );
 

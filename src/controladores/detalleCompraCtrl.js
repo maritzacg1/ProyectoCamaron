@@ -9,9 +9,9 @@ export const getDetalleCompras = async (req, res) => {
       SELECT dc.*, 
              p.precio_unitario,
              a.nombre_alimento AS producto
-      FROM DETALLE_COMPRA dc
-      INNER JOIN PRODUCTO p ON dc.id_producto = p.id_producto
-      INNER JOIN ALIMENTO a ON p.id_alimento = a.id_alimento
+      FROM detalle_compra dc
+      INNER JOIN producto p ON dc.id_producto = p.id_producto
+      INNER JOIN alimento a ON p.id_alimento = a.id_alimento
     `);
 
     res.json(rows);
@@ -32,9 +32,9 @@ export const getDetalleCompra = async (req, res) => {
       SELECT dc.*, 
              p.precio_unitario,
              a.nombre_alimento AS producto
-      FROM DETALLE_COMPRA dc
-      INNER JOIN PRODUCTO p ON dc.id_producto = p.id_producto
-      INNER JOIN ALIMENTO a ON p.id_alimento = a.id_alimento
+      FROM detalle_compra dc
+      INNER JOIN producto p ON dc.id_producto = p.id_producto
+      INNER JOIN alimento a ON p.id_alimento = a.id_alimento
       WHERE dc.id_detalle_compra = ?
     `, [req.params.id]);
 
@@ -66,7 +66,7 @@ export const createDetalleCompra = async (req, res) => {
     const subtotal = cantidad * precio_unitario;
 
     const [result] = await conmysql.query(`
-      INSERT INTO DETALLE_COMPRA 
+      INSERT INTO detalle_compra 
       (id_compra, id_producto, cantidad, precio_unitario, subtotal)
       VALUES (?, ?, ?, ?, ?)
     `, [id_compra, id_producto, cantidad, precio_unitario, subtotal]);
@@ -98,7 +98,7 @@ export const updateDetalleCompra = async (req, res) => {
     const subtotal = cantidad * precio_unitario;
 
     const [result] = await conmysql.query(`
-      UPDATE DETALLE_COMPRA 
+      UPDATE detalle_compra
       SET cantidad=?, precio_unitario=?, subtotal=?
       WHERE id_detalle_compra=?
     `, [cantidad, precio_unitario, subtotal, req.params.id]);
@@ -122,7 +122,7 @@ export const updateDetalleCompra = async (req, res) => {
 export const deleteDetalleCompra = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM DETALLE_COMPRA WHERE id_detalle_compra = ?",
+      "DELETE FROM detalle_compra WHERE id_detalle_compra = ?",
       [req.params.id]
     );
 

@@ -8,7 +8,7 @@ export const getAuditorias = async (req, res) => {
     const [rows] = await conmysql.query(`
       SELECT a.*, u.nombre_usuario
       FROM auditoria_general a
-      INNER JOIN USUARIO u ON a.id_usuario = u.id_usuario
+      INNER JOIN usuario u ON a.id_usuario = u.id_usuario
       ORDER BY a.id_auditoria DESC
     `);
 
@@ -31,7 +31,7 @@ export const getAuditoria = async (req, res) => {
       `
       SELECT a.*, u.nombre_usuario
       FROM auditoria_general a
-      INNER JOIN USUARIO u ON a.id_usuario = u.id_usuario
+      INNER JOIN usuario u ON a.id_usuario = u.id_usuario
       WHERE a.id_auditoria = ?
       `,
       [req.params.id]

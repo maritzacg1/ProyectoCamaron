@@ -7,8 +7,8 @@ export const getProductos = async (req, res) => {
   try {
     const [rows] = await conmysql.query(`
       SELECT p.*, a.nombre_alimento
-      FROM PRODUCTO p
-      INNER JOIN ALIMENTO a ON p.id_alimento = a.id_alimento
+      FROM producto p
+      INNER JOIN alimento a ON p.id_alimento = a.id_alimento
     `);
     res.json(rows);
   } catch (error) {
@@ -23,8 +23,8 @@ export const getProducto = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
       `SELECT p.*, a.nombre_alimento 
-       FROM PRODUCTO p
-       INNER JOIN ALIMENTO a ON p.id_alimento = a.id_alimento
+       FROM producto p
+       INNER JOIN alimento a ON p.id_alimento = a.id_alimento
        WHERE p.id_producto = ?`,
       [req.params.id]
     );
@@ -53,7 +53,7 @@ export const createProducto = async (req, res) => {
 
     // Verificar que el alimento exista
     const [alimentoExiste] = await conmysql.query(
-      `SELECT id_alimento FROM ALIMENTO WHERE id_alimento = ?`,
+      `SELECT id_alimento FROM alimento WHERE id_alimento = ?`,
       [id_alimento]
     );
 
@@ -64,7 +64,7 @@ export const createProducto = async (req, res) => {
     const estadoFinal = estado ?? 1;
 
     const [result] = await conmysql.query(
-      `INSERT INTO PRODUCTO (id_alimento, precio_unitario, estado)
+      `INSERT INTO producto (id_alimento, precio_unitario, estado)
        VALUES (?, ?, ?)`,
       [id_alimento, precio_unitario, estadoFinal]
     );
@@ -91,7 +91,7 @@ export const updateProducto = async (req, res) => {
     const { id_alimento, precio_unitario, estado } = req.body;
 
     const [result] = await conmysql.query(
-      `UPDATE PRODUCTO
+      `UPDATE producto
        SET id_alimento = ?, precio_unitario = ?, estado = ?
        WHERE id_producto = ?`,
       [id_alimento, precio_unitario, estado, req.params.id]
@@ -112,7 +112,7 @@ export const updateProducto = async (req, res) => {
 export const deleteProducto = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM PRODUCTO WHERE id_producto = ?",
+      "DELETE FROM producto WHERE id_producto = ?",
       [req.params.id]
     );
 

@@ -5,7 +5,7 @@ import { conmysql } from "../db.js";
 // ===========================
 export const getAlimentos = async (req, res) => {
   try {
-    const [rows] = await conmysql.query("SELECT * FROM ALIMENTO");
+    const [rows] = await conmysql.query("SELECT * FROM alimento");
     res.json(rows);
   } catch (error) {
     res.status(500).json({ message: "Error al obtener los alimentos", error });
@@ -18,7 +18,7 @@ export const getAlimentos = async (req, res) => {
 export const getAlimento = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
-      "SELECT * FROM ALIMENTO WHERE id_alimento = ?",
+      "SELECT * FROM alimento WHERE id_alimento = ?",
       [req.params.id]
     );
 
@@ -45,7 +45,7 @@ export const createAlimento = async (req, res) => {
     } = req.body;
 
     const [result] = await conmysql.query(
-      `INSERT INTO ALIMENTO 
+      `INSERT INTO alimento 
       (nombre_alimento, marca, composicion, presentacion, observaciones) 
       VALUES (?, ?, ?, ?, ?)`,
       [nombre_alimento, marca, composicion, presentacion, observaciones]
@@ -78,7 +78,7 @@ export const updateAlimento = async (req, res) => {
     } = req.body;
 
     const [result] = await conmysql.query(
-      `UPDATE ALIMENTO 
+      `UPDATE alimento 
        SET nombre_alimento = ?, marca = ?, composicion = ?, presentacion = ?, observaciones = ?
        WHERE id_alimento = ?`,
       [
@@ -106,7 +106,7 @@ export const updateAlimento = async (req, res) => {
 export const deleteAlimento = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM ALIMENTO WHERE id_alimento = ?",
+      "DELETE FROM alimento WHERE id_alimento = ?",
       [req.params.id]
     );
 

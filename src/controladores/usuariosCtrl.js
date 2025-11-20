@@ -8,8 +8,8 @@ export const getUsuarios = async (req, res) => {
   try {
     const [rows] = await conmysql.query(`
       SELECT U.id_usuario, U.nombre_usuario, U.id_rol, R.nombre_rol, U.estado
-      FROM USUARIO U
-      INNER JOIN ROL R ON U.id_rol = R.id_rol
+      FROM usuario U
+      INNER JOIN rol R ON U.id_rol = R.id_rol
     `);
 
     res.json(rows);
@@ -25,8 +25,8 @@ export const getUsuarioById = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
       `SELECT U.id_usuario, U.nombre_usuario, U.id_rol, R.nombre_rol, U.estado
-       FROM USUARIO U
-       INNER JOIN ROL R ON U.id_rol = R.id_rol
+       FROM usuario U
+       INNER JOIN rol R ON U.id_rol = R.id_rol
        WHERE U.id_usuario = ?`,
       [req.params.id]
     );
@@ -54,7 +54,7 @@ export const createUsuario = async (req, res) => {
     const hash = await bcrypt.hash(contrasena, 10);
 
     const [result] = await conmysql.query(
-      `INSERT INTO USUARIO (nombre_usuario, contrasena, id_rol, estado)
+      `INSERT INTO usuario (nombre_usuario, contrasena, id_rol, estado)
        VALUES (?, ?, ?, ?)`,
       [nombre_usuario, hash, id_rol, estado ?? 1]
     );
@@ -84,13 +84,13 @@ export const updateUsuario = async (req, res) => {
     if (contrasena) {
       const hash = await bcrypt.hash(contrasena, 10);
       query = `
-        UPDATE USUARIO 
+        UPDATE usuario 
         SET nombre_usuario=?, contrasena=?, id_rol=?, estado=?
         WHERE id_usuario=?`;
       values = [nombre_usuario, hash, id_rol, estado, req.params.id];
     } else {
       query = `
-        UPDATE USUARIO 
+        UPDATE usuario 
         SET nombre_usuario=?, id_rol=?, estado=?
         WHERE id_usuario=?`;
       values = [nombre_usuario, id_rol, estado, req.params.id];
@@ -113,7 +113,7 @@ export const updateUsuario = async (req, res) => {
 export const deleteUsuario = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM USUARIO WHERE id_usuario=?",
+      "DELETE FROM usuario WHERE id_usuario=?",
       [req.params.id]
     );
 

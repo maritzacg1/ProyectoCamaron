@@ -9,9 +9,9 @@ export const getCompras = async (req, res) => {
       SELECT c.*,
              u.nombre_usuario,
              p.nombre_proveedor
-      FROM COMPRA c
-      INNER JOIN USUARIO u ON c.id_usuario = u.id_usuario
-      INNER JOIN PROVEEDOR p ON c.id_proveedor = p.id_proveedor
+      FROM compra c
+      INNER JOIN usuario u ON c.id_usuario = u.id_usuario
+      INNER JOIN proveedor p ON c.id_proveedor = p.id_proveedor
     `);
 
     res.json(rows);
@@ -27,9 +27,9 @@ export const getCompra = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
       `SELECT c.*, u.nombre_usuario, p.nombre_proveedor
-       FROM COMPRA c
-       INNER JOIN USUARIO u ON c.id_usuario = u.id_usuario
-       INNER JOIN PROVEEDOR p ON c.id_proveedor = p.id_proveedor
+       FROM compra c
+       INNER JOIN usuario u ON c.id_usuario = u.id_usuario
+       INNER JOIN proveedor p ON c.id_proveedor = p.id_proveedor
        WHERE id_compra = ?`,
       [req.params.id]
     );
@@ -57,7 +57,7 @@ export const createCompra = async (req, res) => {
     }
 
     const [result] = await conmysql.query(
-      `INSERT INTO COMPRA (id_usuario, id_proveedor, fecha_compra, total)
+      `INSERT INTO compra (id_usuario, id_proveedor, fecha_compra, total)
        VALUES (?, ?, ?, ?)`,
       [id_usuario, id_proveedor, fecha_compra, total]
     );
@@ -80,7 +80,7 @@ export const createCompra = async (req, res) => {
 export const deleteCompra = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM COMPRA WHERE id_compra = ?",
+      "DELETE FROM compra WHERE id_compra = ?",
       [req.params.id]
     );
 

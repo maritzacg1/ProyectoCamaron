@@ -7,8 +7,8 @@ export const getEstanques = async (req, res) => {
   try {
     const [rows] = await conmysql.query(`
       SELECT e.*, s.nombre_especie
-      FROM ESTANQUE e
-      INNER JOIN ESPECIE s ON e.id_especie = s.id_especie
+      FROM estanque e
+      INNER JOIN especie s ON e.id_especie = s.id_especie
     `);
 
     res.json(rows);
@@ -28,8 +28,8 @@ export const getEstanque = async (req, res) => {
     const [rows] = await conmysql.query(
       `
       SELECT e.*, s.nombre_especie
-      FROM ESTANQUE e
-      INNER JOIN ESPECIE s ON e.id_especie = s.id_especie
+      FROM estanque e
+      INNER JOIN especie s ON e.id_especie = s.id_especie
       WHERE e.id_estanque = ?
       `,
       [req.params.id]
@@ -62,15 +62,15 @@ export const createEstanque = async (req, res) => {
     }
 
     const [result] = await conmysql.query(
-      "INSERT INTO ESTANQUE (nombre_estanque, capacidad_kg, id_especie) VALUES (?, ?, ?)",
+      "INSERT INTO estanque (nombre_estanque, capacidad_kg, id_especie) VALUES (?, ?, ?)",
       [nombre_estanque, capacidad_kg, id_especie]
     );
 
     const [nuevo] = await conmysql.query(
       `
       SELECT e.*, s.nombre_especie
-      FROM ESTANQUE e
-      INNER JOIN ESPECIE s ON e.id_especie = s.id_especie
+      FROM estanque e
+      INNER JOIN especie s ON e.id_especie = s.id_especie
       WHERE id_estanque = ?
       `,
       [result.insertId]
@@ -93,7 +93,7 @@ export const updateEstanque = async (req, res) => {
     const { nombre_estanque, capacidad_kg, id_especie } = req.body;
 
     const [result] = await conmysql.query(
-      "UPDATE ESTANQUE SET nombre_estanque=?, capacidad_kg=?, id_especie=? WHERE id_estanque=?",
+      "UPDATE estanque SET nombre_estanque=?, capacidad_kg=?, id_especie=? WHERE id_estanque=?",
       [nombre_estanque, capacidad_kg, id_especie, req.params.id]
     );
 
@@ -104,8 +104,8 @@ export const updateEstanque = async (req, res) => {
     const [actualizado] = await conmysql.query(
       `
       SELECT e.*, s.nombre_especie
-      FROM ESTANQUE e
-      INNER JOIN ESPECIE s ON e.id_especie = s.id_especie
+      FROM estanque e
+      INNER JOIN especie s ON e.id_especie = s.id_especie
       WHERE e.id_estanque = ?
       `,
       [req.params.id]
@@ -126,7 +126,7 @@ export const updateEstanque = async (req, res) => {
 export const deleteEstanque = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM ESTANQUE WHERE id_estanque = ?",
+      "DELETE FROM estanque WHERE id_estanque = ?",
       [req.params.id]
     );
 

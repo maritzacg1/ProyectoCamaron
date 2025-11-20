@@ -5,7 +5,7 @@ import { conmysql } from "../db.js";
 // ======================================
 export const getRoles = async (req, res) => {
   try {
-    const [rows] = await conmysql.query("SELECT * FROM ROL");
+    const [rows] = await conmysql.query("SELECT * FROM rol");
     res.json(rows);
   } catch (error) {
     res.status(500).json({ message: "Error al obtener los roles", error });
@@ -18,7 +18,7 @@ export const getRoles = async (req, res) => {
 export const getRolById = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
-      "SELECT * FROM ROL WHERE id_rol = ?",
+      "SELECT * FROM rol WHERE id_rol = ?",
       [req.params.id]
     );
 
@@ -39,7 +39,7 @@ export const createRol = async (req, res) => {
     const { nombre_rol, descripcion } = req.body;
 
     const [result] = await conmysql.query(
-      "INSERT INTO ROL (nombre_rol, descripcion) VALUES (?, ?)",
+      "INSERT INTO rol (nombre_rol, descripcion) VALUES (?, ?)",
       [nombre_rol, descripcion]
     );
 
@@ -61,7 +61,7 @@ export const updateRol = async (req, res) => {
     const { nombre_rol, descripcion } = req.body;
 
     const [result] = await conmysql.query(
-      "UPDATE ROL SET nombre_rol = ?, descripcion = ? WHERE id_rol = ?",
+      "UPDATE rol SET nombre_rol = ?, descripcion = ? WHERE id_rol = ?",
       [nombre_rol, descripcion, req.params.id]
     );
 
@@ -80,7 +80,7 @@ export const updateRol = async (req, res) => {
 export const deleteRol = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM ROL WHERE id_rol = ?",
+      "DELETE FROM rol WHERE id_rol = ?",
       [req.params.id]
     );
 

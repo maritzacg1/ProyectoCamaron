@@ -5,7 +5,7 @@ import { conmysql } from "../db.js";
 // ======================================
 export const getProveedores = async (req, res) => {
   try {
-    const [rows] = await conmysql.query("SELECT * FROM PROVEEDOR");
+    const [rows] = await conmysql.query("SELECT * FROM proveedor");
     res.json(rows);
   } catch (error) {
     res.status(500).json({
@@ -21,7 +21,7 @@ export const getProveedores = async (req, res) => {
 export const getProveedor = async (req, res) => {
   try {
     const [rows] = await conmysql.query(
-      "SELECT * FROM PROVEEDOR WHERE id_proveedor = ?",
+      "SELECT * FROM proveedor WHERE id_proveedor = ?",
       [req.params.id]
     );
 
@@ -45,7 +45,7 @@ export const createProveedor = async (req, res) => {
     const { nombre_proveedor, telefono, direccion, correo } = req.body;
 
     const [result] = await conmysql.query(
-      `INSERT INTO PROVEEDOR (nombre_proveedor, telefono, direccion, correo) 
+      `INSERT INTO proveedor (nombre_proveedor, telefono, direccion, correo) 
        VALUES (?, ?, ?, ?)`,
       [nombre_proveedor, telefono, direccion, correo]
     );
@@ -73,7 +73,7 @@ export const updateProveedor = async (req, res) => {
     const { nombre_proveedor, telefono, direccion, correo } = req.body;
 
     const [result] = await conmysql.query(
-      `UPDATE PROVEEDOR 
+      `UPDATE proveedor 
        SET nombre_proveedor = ?, telefono = ?, direccion = ?, correo = ?
        WHERE id_proveedor = ?`,
       [nombre_proveedor, telefono, direccion, correo, req.params.id]
@@ -97,7 +97,7 @@ export const updateProveedor = async (req, res) => {
 export const deleteProveedor = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM PROVEEDOR WHERE id_proveedor = ?",
+      "DELETE FROM proveedor WHERE id_proveedor = ?",
       [req.params.id]
     );
 

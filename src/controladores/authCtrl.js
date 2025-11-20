@@ -12,7 +12,7 @@ export const login = async (req, res) => {
     }
 
     const [rows] = await conmysql.query(
-      "SELECT * FROM USUARIO WHERE nombre_usuario = ?",
+      "SELECT * FROM usuario WHERE nombre_usuario = ?",
       [nombre_usuario]
     );
 
