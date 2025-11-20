@@ -10,7 +10,7 @@ export const getConsumos = async (req, res) => {
         c.*,
         e.nombre_estanque,
         a.nombre_alimento
-      FROM consumos c
+      FROM consumo c
       INNER JOIN estanque ON c.id_estanque = e.id_estanque
       INNER JOIN producto p ON c.id_producto = p.id_producto
       INNER JOIN alimento a ON p.id_alimento = a.id_alimento
@@ -33,7 +33,7 @@ export const createConsumo = async (req, res) => {
     const { id_estanque, id_producto, id_usuario, fecha_consumo, cantidad_consumida, observacion } = req.body;
 
     const [result] = await conmysql.query(
-      `INSERT INTO consumos (id_estanque, id_producto, id_usuario, fecha_consumo, cantidad_consumida, observacion)
+      `INSERT INTO consumo (id_estanque, id_producto, id_usuario, fecha_consumo, cantidad_consumida, observacion)
        VALUES (?, ?, ?, ?, ?, ?)`,
       [id_estanque, id_producto, id_usuario, fecha_consumo, cantidad_consumida, observacion]
     );
@@ -53,7 +53,7 @@ export const createConsumo = async (req, res) => {
 export const deleteConsumo = async (req, res) => {
   try {
     const [result] = await conmysql.query(
-      "DELETE FROM consumos WHERE id_consumo = ?",
+      "DELETE FROM consumo WHERE id_consumo = ?",
       [req.params.id]
     );
 
