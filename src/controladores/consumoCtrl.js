@@ -11,7 +11,7 @@ export const getConsumos = async (req, res) => {
         e.nombre_estanque,
         a.nombre_alimento
       FROM consumo c
-      INNER JOIN estanque ON c.id_estanque = e.id_estanque
+      INNER JOIN estanque e ON c.id_estanque = e.id_estanque
       INNER JOIN producto p ON c.id_producto = p.id_producto
       INNER JOIN alimento a ON p.id_alimento = a.id_alimento
     `);
