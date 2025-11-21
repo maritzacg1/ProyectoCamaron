@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { 
+import {
   getDetalleCompras,
   getDetalleCompra,
   createDetalleCompra,
-  updateDetalleCompra,
-  deleteDetalleCompra
+  updateEstadoDetalle,
+  getFactura
 } from '../controladores/detalleCompraCtrl.js';
 
 const router = Router();
@@ -12,7 +12,8 @@ const router = Router();
 router.get('/', getDetalleCompras);
 router.get('/:id', getDetalleCompra);
 router.post('/', createDetalleCompra);
-router.put('/:id', updateDetalleCompra);
-router.delete('/:id', deleteDetalleCompra);
+
+router.put('/estado/:id', updateEstadoDetalle);
+router.get('/factura/:id', getFactura);
 
 export default router;
